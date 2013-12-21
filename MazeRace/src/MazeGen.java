@@ -16,6 +16,8 @@ public class MazeGen {
 			}
 			System.out.println();
 		}
+		
+		System.out.println("Done");
 	}
 	
 	private static Cell[][] mazeGen(int row, int col)
