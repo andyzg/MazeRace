@@ -1,2 +1,3 @@
 MazeRace
 ========
+Game instructions
