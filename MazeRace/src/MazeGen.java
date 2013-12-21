@@ -5,7 +5,7 @@ public class MazeGen {
 	
 	public static void main(String[] args)
 	{
-		Cell [][]maze = mazeGen(size,size);
+		Cell [][]maze = gridGen(size,size);
 		generateWalls(maze);
 
 		for (int i=0; i<size; i++)
@@ -20,7 +20,7 @@ public class MazeGen {
 		System.out.println("Done");
 	}
 	
-	private static Cell[][] mazeGen(int row, int col)
+	private static Cell[][] gridGen(int row, int col)
 	{
 		Cell [][]maze = new Cell[row][col];
 		
@@ -39,35 +39,29 @@ public class MazeGen {
 	{
 		for (int i=0; i<maze.length; i++)
 		{
-			for (int j=0; j<maze[0].length; j++)
+			for (int j=0; j<maze[0].length-1; j++)
 			{
-				connectWalls(maze, i, j);
+				Wall a = new Wall(maze[i][j], maze[i][j+1]);
+				
+				maze[i][j].addWall(a);
+				maze[i][j+1].addWall(a);
+				
+				
+				Wall b = new Wall(maze[j][i], maze[j+1][i]);
+				maze[j][i].addWall(b);
+				maze[j+1][i].addWall(b);
 			}
 		}
 	}
 	
-	private static void connectWalls(Cell[][] maze, int x, int y)
+	private static void removeWall(Wall wall, Cell a)
 	{
-		for (int i=0; i<2; i++)
-		{
-			if (y > 0 && y < size-1)
-			{
-				Wall a = new Wall(maze[x][y-1+i], maze[x][y+i]);
-				
-				maze[x][y-1+i].addWall(a);
-				maze[x][y+i].addWall(a);
-			}
-		}
+		wall.getConnectedCell(a).removeWall(wall.getID());
+		a.removeWall(wall.getID());
+	}
+	
+	private static void mazeGenerator(Cell[][] maze)
+	{
 		
-		for (int i=0; i<2; i++)
-		{
-			if (x > 0 && x < size-1)
-			{
-				Wall a = new Wall(maze[x-1+i][y], maze[x+i][y]);
-				
-				maze[x-1+i][y].addWall(a);
-				maze[x+i][y].addWall(a);
-			}
-		}
 	}
 }

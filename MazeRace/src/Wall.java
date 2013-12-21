@@ -2,23 +2,39 @@ import java.util.ArrayList;
 
 
 public class Wall {
-
-	private ArrayList<Cell> cell;
+	private static int idGenerator = 0;
+	private int id;
+	private ArrayList<Cell> cell = new ArrayList<Cell>();
+	
 	
 	public Wall(Cell cell1, Cell cell2)
 	{
-		cell.add(new Cell(new PointXY(cell1.getX(), cell1.getY())));
-		cell.add(new Cell(new PointXY(cell2.getX(), cell2.getY())));
+		this.cell.add(cell1);
+		this.cell.add(cell2);
+		
+		this.id = idGenerator;
+		idGenerator++;
+	}
+	
+	public int getID()
+	{
+		return this.id;
+	}
+	
+	public void setID(int id)
+	{
+		this.id = id;
 	}
 	
 	public Cell getConnectedCell(Cell a)
 	{
-		if (cell.size() == 2)
+		if (this.cell.size() == 2)
 		{
-			for (Cell i:cell)
-				if (i.compareTo(a) != 1)
+			for (Cell i:this.cell)
+				if (i.compareTo(a) != 0)
 					return i;
 		}
+		System.out.println("Error: Wall could not be found");
 		return new Cell(-1, -1);
 	}
 }

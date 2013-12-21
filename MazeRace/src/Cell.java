@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Cell implements Comparable<Cell> {
 
 	private boolean visited;
-	private ArrayList<Wall> walls;
+	private ArrayList<Wall> walls = new ArrayList<Wall>();
 	private int x;
 	private int y;
 	
@@ -17,6 +17,7 @@ public class Cell implements Comparable<Cell> {
 	{
 		this.x = point.getX();
 		this.y = point.getY();
+		visited = false;
 	}
 	
 	public Cell(int x, int y)
@@ -61,11 +62,23 @@ public class Cell implements Comparable<Cell> {
 	{
 		return walls;
 	}
+
+	public void removeWall(int id)
+	{
+		for (Wall i:walls)
+		{
+			if (i.getID() == id)
+			{
+				this.walls.remove(i);
+				break;
+			}
+		}
+	}
 	
 	@Override
 	public int compareTo(Cell cell) {
 		if (this.getX() == cell.getX() && this.getY() == cell.getY())
-			return 1;
-		return 0;
+			return 0;
+		return 1;
 	}
 }
