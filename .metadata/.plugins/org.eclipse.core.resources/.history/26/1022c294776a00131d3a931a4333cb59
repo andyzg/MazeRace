@@ -1,0 +1,54 @@
+
+public class MazeGen {
+
+	public static final int size = 20;
+	
+	public static void main(String[] args)
+	{
+		Cell [][]maze = mazeGen(size,size);
+		generateWalls(maze);
+		System.out.println("Done");
+	}
+	
+	private static Cell[][] mazeGen(int row, int col)
+	{
+		Cell [][]maze = new Cell[row][col];
+		
+		for (int i=0; i<row; i++)
+		{
+			for (int j=0; j<col; j++)
+			{
+				maze[i][j] = new Cell(i, j);
+			}
+		}
+		
+		return maze;
+	}
+	
+	private static void generateWalls(Cell[][] maze)
+	{
+		for (int i=0; i<maze.length; i++)
+		{
+			for (int j=0; j<maze[0].length; j++)
+			{
+				connectWalls(maze, i, j);
+			}
+		}
+	}
+	
+	private static void connectWalls(Cell[][] maze, int x, int y)
+	{
+		for (int i=0; i<2; i++)
+		{
+			if (y >= 0 && y < size)
+			{
+				Wall a = new Wall(maze[x][y-1+i], maze[x][y+i]);
+			}
+		}
+		
+		for (int i=0; i<2; i++)
+		{
+			Wall a = new Wall(maze[x-1+i][y], maze[x][y+i]);
+		}
+	}
+}

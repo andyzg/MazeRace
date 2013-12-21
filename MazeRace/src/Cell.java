@@ -57,6 +57,11 @@ public class Cell implements Comparable<Cell> {
 		walls.add(wall);
 	}
 	
+	public ArrayList<Wall> getWalls()
+	{
+		return walls;
+	}
+	
 	@Override
 	public int compareTo(Cell cell) {
 		if (this.getX() == cell.getX() && this.getY() == cell.getY())

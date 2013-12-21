@@ -9,9 +9,6 @@ public class Wall {
 	{
 		cell.add(new Cell(new PointXY(cell1.getX(), cell1.getY())));
 		cell.add(new Cell(new PointXY(cell2.getX(), cell2.getY())));
-		
-		cell1.addWall(this);
-		cell2.addWall(this);
 	}
 	
 	public Cell getConnectedCell(Cell a)
