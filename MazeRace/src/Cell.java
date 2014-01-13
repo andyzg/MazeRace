@@ -13,13 +13,6 @@ public class Cell implements Comparable<Cell> {
 		visited = false;
 	}
 	
-	public Cell (PointXY point)
-	{
-		this.x = point.getX();
-		this.y = point.getY();
-		visited = false;
-	}
-	
 	public Cell(int x, int y)
 	{
 		this.x = x;

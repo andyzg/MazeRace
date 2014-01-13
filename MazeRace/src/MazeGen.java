@@ -2,20 +2,29 @@ import java.util.Random;
 
 public class MazeGen {
 
-	public static final int size = 20;
-	private static Random rand = new Random();
-	
-	public static Cell[][] getMaze()
+	private  Random rand = new Random();
+	private  Cell[][] maze;
+
+	public MazeGen(int size) {
+		makeMaze(size);
+		
+		/*for (int i=0; i<maze.length; i++) {
+			for (int j=0; j<maze.length; j++) {
+				System.out.print(maze[i][j].getWalls().size());
+			}
+			System.out.println();
+		}*/
+	}
+	public void makeMaze(int size)
 	{
 		Cell [][]maze = gridGen(size,size);
 		generateWalls(maze);
 
 		mazeGenerator(maze, 0, 0);
-
-		return maze;
+		setMaze(maze);
 	}
 	
-	private static Cell[][] gridGen(int row, int col)
+	private Cell[][] gridGen(int row, int col)
 	{
 		Cell [][]maze = new Cell[row][col];
 		
@@ -30,7 +39,7 @@ public class MazeGen {
 		return maze;
 	}
 	
-	private static void generateWalls(Cell[][] maze)
+	private  void generateWalls(Cell[][] maze)
 	{
 		for (int i=0; i<maze.length; i++)
 		{
@@ -49,13 +58,13 @@ public class MazeGen {
 		}
 	}
 	
-	private static void removeWall(Wall wall, Cell a)
+	private  void removeWall(Wall wall, Cell a)
 	{
 		wall.getConnectedCell(a).removeWall(wall.getID());
 		a.removeWall(wall.getID());
 	}
 	
-	private static void mazeGenerator(Cell[][] maze, int i, int j)
+	private  void mazeGenerator(Cell[][] maze, int i, int j)
 	{
 		maze[i][j].setVisited(true);
 		int wallAmount = maze[i][j].getWalls().size();
@@ -80,7 +89,7 @@ public class MazeGen {
 		return;
 	}
 	
-	private static boolean hasVisited(Cell cell, int size) {
+	private boolean hasVisited(Cell cell, int size) {
 		int visited = 0;
 		
 		for (Wall wall:cell.getWalls())
@@ -93,5 +102,13 @@ public class MazeGen {
 			return false;
 		}
 		return true;
+	}
+	
+	public void setMaze(Cell[][] maze) {
+		this.maze = maze;
+	}
+	
+	public Cell[][] getMaze() {
+		return this.maze;
 	}
 }
