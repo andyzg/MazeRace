@@ -35,30 +35,32 @@ public class Board extends JPanel {
 		
 		for (int i=0; i<maze.length; i++) {
 			for (int j=0; j<maze.length; j++) {
-				Cell cell = maze[i][j];
-				for (Wall w:cell.getWalls()) {
-					Cell temp = w.getConnectedCell(cell);
-					int x = temp.getX();
-					int y = temp.getY();
-					
-					// System.out.println("Cell " + i + " " + j + " is connected to Cell " + x + " " + y);
-					int xPos;
-					int yPos;
-					if (y == j) {
-						xPos = x > i ?  x : i;
-						yPos = j;
-						g2.drawLine((int)((j)*blockHeight),
-								(int)((xPos)*blockWidth),
-								(int)((j+1)*blockHeight),
-								(int)((xPos)*blockWidth));
-					}
-					else {
-						xPos = i;
-						yPos = y > j ? y : j;
-						g2.drawLine((int)((yPos)*blockHeight),
-								(int)((i)*blockWidth),
-								(int)((yPos)*blockHeight),
-								(int)((i+1)*blockWidth));					
+				if ((i+j)%2==0)
+				{
+					Cell cell = maze[i][j];
+					for (Wall w:cell.getWalls()) {
+						Cell temp = w.getConnectedCell(cell);
+						int x = temp.getX();
+						int y = temp.getY();
+						
+						int xPos;
+						int yPos;
+						if (y == j) {
+							xPos = x > i ?  x : i;
+							yPos = j;
+							g2.drawLine((int)((j)*blockHeight),
+									(int)((xPos)*blockWidth),
+									(int)((j+1)*blockHeight),
+									(int)((xPos)*blockWidth));
+						}
+						else {
+							xPos = i;
+							yPos = y > j ? y : j;
+							g2.drawLine((int)((yPos)*blockHeight),
+									(int)((i)*blockWidth),
+									(int)((yPos)*blockHeight),
+									(int)((i+1)*blockWidth));					
+						}
 					}
 				}
 			}
